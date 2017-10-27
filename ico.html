@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zloadr ICO Admin</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="web3.min.js"></script>
+    <script type="text/javascript" src="ico.js"></script>
+    <link rel="stylesheet" href="style.css" type='text/css'/>
+</head>
+<body>
+<h1>Zloadr ICO Admin</h1>
+<div class="error" id="errormsg"></div>
+<h2>0. Load contracts</h2>
+<form id="loadContractsForm">
+    <label for="tokenABI">Token ABI:
+        <textarea id="tokenABI" readonly class="abi"></textarea>
+    </label>
+    <label for="crowdsaleABI">Crowdsale ABI:
+        <textarea id="crowdsaleABI" readonly  class="abi"></textarea>
+    </label>
+    <input type="button" id="loadContractsBtn" value="Load contracts">
+</form>
+
+
+<h2>1. Publish Crowdsale</h2>
+<form id="publishCrowdsaleForm">
+    <div>Current time: <input type="text" id="clock" name="clock" value="" readonly class="time"> (Z = UTC timezone, ISO8601 format)</div>
+    <table id="crowdsaleRoundsForm">
+        <thead><tr>
+            <th>Round</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Price, USD</th>
+        </tr></thead>
+        <tbody></tbody>
+    </table>
+    <input type="button" id="addRound" value="Add round">
+    <table>
+        <thead><tr>
+            <th>Param</th>
+            <th>Value</th>
+            <th></th>
+        </tr></thead>
+        <tbody>
+            <tr><td>1 ETH = </td><td><input type="text" name="ethPrice" value="" class="number"> USD</td><td></td></tr>
+            <tr><td>Owner tokens:</td><td><input type="text" name="ownerTokens" value="" class="number"> ZDR</td><td></td></tr>
+            <tr><td>Controller:</td><td><input type="text" name="controller" value="" class="ethAddress"></td><td>Address of the server which will issue tokens paid by non-ethereum currencies</td></tr>
+            <tr><td>Beneficiary:</td><td><input type="text" name="beneficiary" value="" class="ethAddress"></td><td>Address of MultiSig wallet</td></tr>
+        </tbody>
+    </table>
+    <div><input type="button" id="publishCrowdsale" value="Publish"></div>
+    <div><label>Transaction: <input type="text" readonly name="publishedTx" value="" class="ethTx"></label></div>
+    <div><label>Crowdsale Published at: <input type="text" readonly name="publishedAddress" value="" class="ethAddress"></label></div>
+    <div><label>Token Published at: <input type="text" readonly name="tokenAddress" value="" class="ethAddress"></label></div>
+</form>
+
+<h2>2. Manage Crowdsale </h2>
+<form id="manageCrowdsale">
+    <div><label>Crowdsale at: <input type="text" name="crowdsaleAddress" value="" class="ethAddress"></label></div>
+    <div><input type="button" id="loadCrowdsaleInfo" value="Load info"></div>
+    <table id="crowdsaleRoundsInfo">
+        <thead><tr>
+            <th>Round</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Rate</th>
+        </tr></thead>
+        <tbody></tbody>
+    </table>
+    <table>
+        <tbody>
+            <tr><td>1 ETH = </td><td><input type="text" name="ethPrice" readonly value="" class="number"> USD</td><td></td></tr>
+            <tr><td>Total collected:</td><td><input type="text" name="collectedEther" readonly value="" class="number"> ETH</td><td></td></tr>
+            <tr><td>Total collected:</td><td><input type="text" name="collectedUSD" readonly value="" class="number"> USD</td><td></td></tr>
+            <tr><td>Current rate: 1 ETH = </td><td><input type="text" name="currentRate" readonly value="" class="number"> ZDR</td><td></td></tr>
+            <tr><td>Controller:</td><td><input type="text" name="controller" readonly value="" class="ethAddress"></td><td>Address of the server which will issue tokens paid by non-ethereum currencies</td></tr>
+            <tr><td>Beneficiary:</td><td><input type="text" name="beneficiary" readonly value="" class="ethAddress"></td><td>Address of MultiSig wallet</td></tr>
+        </tbody>
+    </table>
+    <div><label>Token at: <input type="text" name="tokenAddress" readonly value="" class="ethAddress"></label></div>
+    <div><input type="button" id="crowdsaleFinalize" value="Finalize"> Finalize crowdsale: finish token minting, allow token transfer, change token ownership to yourself</div>
+
+    <h3>Update ETH Price</h3>
+    <div>1 ETH = <input type="text" name="newEthPrice" value="" class="number"> USD <input type="button" id="updateUsdRate" value="Update"></div>
+
+    <h3>Issue tokens paid with other currencies</h3>
+    <div>To: <input type="text" name="issueTo" value="" class="ethAddress"> Amount: <input type="text" name="issueTokens" value="" class="number"> ZDR <input type="button" id="issueTokens" value="Issue"></div>
+    or
+    <div>To: <input type="text" name="issueToUSD" value="" class="ethAddress"> Amount: <input type="number" name="issueAmountUSD" value="" min="0" step="0.01" class="number"> USD <input type="button" id="issueTokensUSD" value="Issue"></div>
+</form>
+
+</body>
+</html>
+
