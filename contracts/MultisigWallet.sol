@@ -1,15 +1,18 @@
 pragma solidity ^0.4.15;
 
 
-import './zeppelin/token/ERC20.sol';
+import './zeppelin/token/ERC20Basic.sol';
+import './zeppelin/token/SafeERC20.sol';
 
 contract MultisigWallet {
+    using SafeERC20 for ERC20Basic;
+
     enum ProposalType {Ether, TokenTransfer}
 
     struct Proposal {
         ProposalType proposalType;
         address to;
-        ERC20 token;
+        ERC20Basic token;
         uint256 amount;
         uint8 approvalsCount;
         bool executed;
@@ -49,7 +52,7 @@ contract MultisigWallet {
     * @notice Create proposal to send Ether
     * 
     */
-    function createProposal(ProposalType _type, address _to, ERC20 _token, uint256 _amount) onlyOwner public returns(uint256) {
+    function createProposal(ProposalType _type, address _to, ERC20Basic _token, uint256 _amount) onlyOwner public returns(uint256) {
         uint256 idx = proposalCount; 
         proposals[idx] = Proposal({
             proposalType: _type, 
@@ -83,7 +86,7 @@ contract MultisigWallet {
             require(p.amount <= this.balance);
             p.to.transfer(p.amount);    //this will throw if failed
         }else if(p.proposalType == ProposalType.TokenTransfer){
-            p.token.transfer(p.to, p.amount);
+            p.token.safeTransfer(p.to, p.amount);
         }else{
             revert();
         }
