@@ -21,6 +21,7 @@ jQuery(document).ready(function($) {
             $('#crowdsaleABI').text(JSON.stringify(data.abi));
         });
         initCrowdsaleForm();
+        initURLParse();
     }
     function addCrowdsaleRound(roundName, startTimestamp, endTimestamp, rate){
         let tbody = $('#crowdsaleRoundsForm tbody');
@@ -47,6 +48,20 @@ jQuery(document).ready(function($) {
         $('input[name=beneficiary]', form).val(web3.eth.accounts[0]);
 
     };
+    function initURLParse(){
+        if(window.location.search == '') return;
+        let params = window.location.search.substr(1).split('&').map(function(item){return item.split("=").map(decodeURIComponent);}); //parse GET paramaters of current url
+        let crowdsaleParam = params.find(function(item){return item[0] == 'crowdsale'});
+        if(typeof crowdsaleParam != 'undefined'){
+            let crowdsale  = crowdsaleParam[1];
+            if(web3.isAddress(crowdsale)){
+                $('input[name=crowdsaleAddress]',"#manageCrowdsale").val(crowdsale);
+                setTimeout(function(){  //have to wait a bit for this to work
+                    $('#loadCrowdsaleInfo').click();    
+                }, 100);
+            }
+        }
+    }
     $('#addRound').click(function(){
         let rows = $('#crowdsaleRoundsForm tbody tr');
         let lastRow = rows.length-1
