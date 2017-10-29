@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zloadr MultiSig Wallet Admin</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="web3.min.js"></script>
+    <script type="text/javascript" src="multisig.js"></script>
+    <link rel="stylesheet" href="style.css" type='text/css'/>
+</head>
+<body>
+<h1>Zloadr MultiSig Wallet Admin</h1>
+<div class="error" id="errormsg"></div>
+<h2>0. Load contracts</h2>
+<form id="loadContractsForm">
+    <label>Wallet ABI:
+        <textarea id="walletABI" readonly class="abi"></textarea>
+    </label>
+    <input type="button" id="loadContractsBtn" value="Load contracts">
+</form>
+
+
+<h2>1. Publish Wallet</h2>
+<form id="publishWalletForm">
+    <table>
+        <tbody>
+            <tr><td>Owner 1:</td><td><input type="text" name="owner[0]" value="" class="ethAddress"></td><td></td></tr>
+            <tr><td>Owner 2:</td><td><input type="text" name="owner[1]" value="" class="ethAddress"></td><td></td></tr>
+        </tbody>
+    </table>
+    <div><input type="button" id="publishWallet" value="Publish"></div>
+    <div><label>Transaction: <input type="text" readonly name="publishedTx" value="" class="ethTx"></label></div>
+    <div><label>Wallet Published at: <input type="text" readonly name="publishedAddress" value="" class="ethAddress"></label></div>
+</form>
+
+<h2>2. Manage Wallet </h2>
+<form id="manageWallet">
+    <div><label>Wallet at: <input type="text" name="walletAddress" value="" class="ethAddress"></label></div>
+    <div><label>ZDR Token at: <input type="text" name="zdrAddress" value="" class="ethAddress"></label></div>
+    <div><input type="button" id="loadWalletInfo" value="Load info"></div>
+    <table>
+        <tbody>
+            <tr><td>Owner 1:</td><td><input type="text" name="owner[0]" readonly value="" class="ethAddress"></td></tr>
+            <tr><td>Owner 2:</td><td><input type="text" name="owner[1]" readonly value="" class="ethAddress"></td></tr>
+            <tr><td>ETH Balance:</td><td><input type="text" name="ethBalance" readonly value="" class="number"> ETH</td></tr>
+            <tr><td>ZDR Balance:</td><td><input type="text" name="zdrBalance" readonly value="" class="number"> ZDR</td></tr>
+        </tbody>
+    </table>
+    <h3>Proposals</h3>
+    <table id="proposalsInfo">
+        <thead><tr>
+            <th>#</th>
+            <th>to</th>
+            <th>amount</th>
+            <th></th>
+        </tr></thead>
+        <tbody></tbody>
+    </table>
+    <h3>Create transfer proposal</h3>
+        <div>To:<input type="text" name="newProposalTo" value="" class="ethAddress"></div>
+        <div>Amount: <input type="text" name="newProposalAmount" value="" class="number"> 
+            <label><input type="radio" name="newProposalType"  value="eth"> ETH</label>
+            <label><input type="radio" name="newProposalType" value="zdr"> ZDR</label>
+        </div>
+        <input type="button" id="newProposalPublish" value="Submit">
+        
+    </table>
+
+</form>
+
+</body>
+</html>
+
