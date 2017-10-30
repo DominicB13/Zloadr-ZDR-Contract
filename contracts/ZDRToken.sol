@@ -6,7 +6,7 @@ import './zeppelin/ownership/HasNoContracts.sol';
 import './zeppelin/ownership/HasNoTokens.sol';
 
 contract ZDRToken is MintableToken, HasNoContracts, HasNoTokens { //MintableToken is StandardToken, Ownable
-    string public symbol = 'ZDT';
+    string public symbol = 'ZDR';
     string public name = 'Zloadr Token';
     uint8 public constant decimals = 8;
 
