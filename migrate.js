@@ -72,8 +72,8 @@ jQuery(document).ready(function($) {
         // transferEvent.get(function(error, log){
         //     console.log(error, log);
         // });
-        let etherscanAPI = 'https://rinkeby.etherscan.io/api';
-        //let etherscanAPI = 'https://api.etherscan.io/api';
+        //let etherscanAPI = 'https://rinkeby.etherscan.io/api';
+        let etherscanAPI = 'https://api.etherscan.io/api';
         let etherscanAPIKEY = '3ETYIJ4T3ZMKMUHHQAVE421BPN2FG4JJZW';
         $.ajax(etherscanAPI,{
             'dataType':'json', 
