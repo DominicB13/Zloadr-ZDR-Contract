@@ -333,7 +333,7 @@ jQuery(document).ready(function($) {
         let publishArgs = arguments.slice(0);
         publishArgs.push({
                 from: web3.eth.accounts[0], 
-                data: contractDef.unlinked_binary,
+                data: contractDef.bytecode,
         });
         publishArgs.push(function(error, result){
             waitForContractCreation(contractObj, error, result, txCallback, publishedCallback);

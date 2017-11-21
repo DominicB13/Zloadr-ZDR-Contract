@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zloadr Token Migration</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="web3.min.js"></script>
+    <script type="text/javascript" src="migrate.js"></script>
+    <link rel="stylesheet" href="style.css" type='text/css'/>
+</head>
+<body>
+<h1>Zloadr Token Migration</h1>
+<div class="error" id="errormsg"></div>
+<h2>0. Load contracts</h2>
+<form id="loadContractsForm">
+    <label>Token ABI:
+        <textarea id="tokenABI" readonly class="abi"></textarea>
+    </label>
+    <label>Migration ABI:
+        <textarea id="migrationABI" readonly class="abi"></textarea>
+    </label>
+</form>
+
+<h2>1. Publish Migration contract</h2>
+<form id="migrationContractForm">
+    <div><input type="button" id="publishMigration" value="Publish"></div>
+    <div><label>Transaction: <input type="text" readonly name="publishedTx" value="" class="ethTx"></label></div>
+    <div><label>Migration contract published at: <input type="text" readonly name="publishedAddress" value="" class="ethAddress"></label></div>
+    <div><label>Token published at: <input type="text" readonly name="tokenAddress" value="" class="ethAddress"></label></div>
+</form>
+
+
+
+<h2>2. Load data from blockchain</h2>
+<form id="collectDataForm">
+    <div><label>Old token at: <input type="text" name="oldTokenAddress" value="" class="ethAddress"></label></div>
+    <div><input type="button" id="collectData" value="Collect data"></div>
+    <textarea id="tokenHolders" readonly style="width: 100%; height:100px;"></textarea>
+</form>
+
+<h2>3. Mint tokens to their owners </h2>
+<form id="mintTokensForm">
+    <div>Migration contract at: <input type="text" name="migrationAddress" value="" class="ethAddress"></div>
+    <div>Holders from: <input type="number" name="fromHolder" value="0" class="number"> to <input type="number" name="toHolder" value="" class="number"></div>
+    <div><input type="button" id="executeMigration" value="Execute migration"></div>
+    <div><input type="button" id="transferTokenOwnership" value="Claim token ownership"></div>
+</form>
+
+</body>
+</html>
+
